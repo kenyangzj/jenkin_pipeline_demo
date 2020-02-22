@@ -8,7 +8,18 @@ def isRun = targetBranch == "develop" // indicate which branch to run this job
 
 
 node {
-    stage('HelloWorld') {
-        echo 'Hello World'
+    def log
+    try {
+        stage('Task Info') {
+            log = "[STAGE1]: Jenkins Task is active..."
+            echo '\u2600 Runtime Environment: '
+            echo "TASK: BUILD_URL=${jobBuildUrl} \n Form: ${currentBranch} \u2192 ${targetBranch}"
+            sh "env"
+        }
+    } catch (exc) {
+        echo 'ERROR: ' + exc
+        throw exc
+    } finally {
+
     }
 }
