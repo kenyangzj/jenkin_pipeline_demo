@@ -1,5 +1,8 @@
 #!/usr/bin/env groovy
 
+def gitSource = 'https://git.sami.int.thomsonreuters.com/data-sourcing/coconut.git'
+def gitCredentialsId = 'd8615103-ece2-4e76-ae72-ea588b4e1cbc'
+
 def jobBuildUrl = env.BUILD_URL
 def currentBranch = "*/develop"
 def targetBranch = "develop"
@@ -14,6 +17,19 @@ node {
             log = "[STAGE1]: Jenkins Task is active..."
             echo '\u2600 Runtime Environment: '
             echo "TASK: BUILD_URL=${jobBuildUrl} \n Form: ${currentBranch} \u2192 ${targetBranch}"
+        }
+
+        stage('Checkout Code') {
+            log = "[STAGE2]: Checkout code from gitlab repo now..."
+            echo 'Pull code from the gitlab server.'
+            // sh "rm -rf *"
+            // pull code from the gitlab server
+            checkout([
+                    $class                           : 'GitSCM',
+                    branches                         : [[name: '*/master']]
+            ])
+
+
         }
 
         stage('Build & UnitTest') {
