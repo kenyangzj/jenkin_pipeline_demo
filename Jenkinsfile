@@ -1,7 +1,6 @@
 #!/usr/bin/env groovy
 
-def gitSource = 'https://git.sami.int.thomsonreuters.com/data-sourcing/coconut.git'
-def gitCredentialsId = 'd8615103-ece2-4e76-ae72-ea588b4e1cbc'
+def gitSource = 'https://github.com/kenyangzj/jenkin_pipeline_demo.git'
 
 def jobBuildUrl = env.BUILD_URL
 def currentBranch = "*/develop"
@@ -26,7 +25,10 @@ node {
             // pull code from the gitlab server
             checkout([
                     $class                           : 'GitSCM',
-                    branches                         : [[name: '*/master']]
+                    branches                         : [[name: '*/master']],
+                    userRemoteConfigs                : [[
+                                                                url          : gitSource
+                                                        ]]
             ])
 
 
