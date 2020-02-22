@@ -14,7 +14,6 @@ node {
             log = "[STAGE1]: Jenkins Task is active..."
             echo '\u2600 Runtime Environment: '
             echo "TASK: BUILD_URL=${jobBuildUrl} \n Form: ${currentBranch} \u2192 ${targetBranch}"
-            sh "env"
         }
 
         stage('Build & UnitTest') {
